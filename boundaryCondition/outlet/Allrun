@@ -1,0 +1,14 @@
+#!/bin/bash
+
+blockMesh
+
+surfaceFeatureExtract
+
+snappyHexMesh -overwrite
+
+rm -fr 0
+cp -r 0.org 0
+
+setFields
+
+interFoam | tee solve.log

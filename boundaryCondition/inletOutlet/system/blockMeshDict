@@ -1,0 +1,148 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  v2306                                 |
+|   \\  /    A nd           | Website:  www.openfoam.com                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    object      blockMeshDict;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+scale   1;
+
+vertices
+(
+    (-1 -1 0)
+    (1 -1 0)
+    (1 1 0)
+    (-1 1 0)
+    
+    (-1 -1 0.5)
+    (1 -1 0.5)
+    (1 1 0.5)
+    (-1 1 0.5)
+    
+    (-1 -1 2)//8
+    (1 -1 2)//9
+    (1 1 2)//10
+    (-1 1 2)//11
+);
+
+blocks
+(
+    hex (0 1 2 3 4 5 6 7) (20 20 5) simpleGrading (1 1 1)
+    hex (4 5 6 7 8 9 10 11) (20 20 15) simpleGrading (1 1 1)
+);
+
+edges
+(
+);
+
+boundary
+(
+    atmosphere
+    {
+        type patch;
+        faces
+        (
+            (8 9 10 11)
+        );
+    }
+    
+    walls
+    {
+        type wall;
+        faces
+        (
+            (1 5 4 0)
+            (5 9 8 4)
+            (3 7 6 2)
+            (7 11 10 6)
+            (0 3 2 1)
+            
+            (4 8 11 7)
+        );
+    }
+    
+    inlet
+    {
+        type wall;
+        faces
+        (
+            (0 4 7 3)
+        );
+    }   
+    
+    outlet
+    {
+        type wall;
+        faces
+        (
+            (2 6 5 1)
+            (6 10 9 5)
+        );
+    }    
+    /*
+    Xmin
+    {
+        type wall;
+        faces
+        (
+            (0 4 7 3)
+        );
+    }
+    Xmax
+    {
+        type wall;
+        faces
+        (
+            (2 6 5 1)
+        );
+    }    
+    Ymin
+    {
+        type wall;
+        faces
+        (
+            (1 5 4 0)
+        );
+    }    
+    Ymax
+    {
+        type wall;
+        faces
+        (
+            (3 7 6 2)
+        );
+    }    
+    Zmin
+    {
+        type wall;
+        faces
+        (
+            (0 3 2 1)
+        );
+    }    
+    Zmax
+    {
+        type patch;
+        faces
+        (
+            (4 5 6 7)
+        );
+    }
+    */
+);
+
+mergePatchPairs
+(
+);
+
+
+// ************************************************************************* //
